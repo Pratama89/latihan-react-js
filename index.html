@@ -17,18 +17,86 @@
     <script type="text/babel"> 
     
       function MyApp() {
+        const students = ['Kirana', 'Amir', 'Mushab'];
+        const [likes, setLikes] = React.useState(0);
+        const [angka, setAngka] = React.useState(0);
+
+        function handleClick() {
+          setLikes(likes + 1);
+        }
+
+        function Tombol ({title}){
+          if(angka == 10 || angka < 0){
+            return(
+              <button onClick={title == "-" ? Kurang : Tambah} disabled >{title ? title : ""}</button>
+            )
+          } else {
+            return(
+              <button onClick={title == "-" ? Kurang : Tambah}>{title ? title : ""}</button>
+            )
+          }
+        }
+
+        function Tambah(){
+          setAngka(angka + 1);
+        }
+        function Kurang(){
+          setAngka(angka - 1);
+        }
+        function Reset(){
+          setAngka(0);
+        }
+
+        function ResetButton(){
+          if(angka == 10 || angka < 0) {
+            return(
+              <button onClick={Reset}> Reset </button>
+            )
+          } else {
+            return(
+              <button onClick={Reset} disabled> Reset </button>
+            )
+          }
+        }
+
+        
+
         return (
         <div>
-          <Header nama="Dental Supply"/>
           <Header nama="Pharmadental Supply"/>
+          <ul>
+            {
+              students.map((student) => (
+                <li key={student}>{student}</li>
+              ))
+            }  
+          </ul>
+          <button onClick={handleClick}>Like ({likes})</button>
+
+          <br />
+          <br />
+
+          <Tombol title="-" />
+            <span> {angka==10 || angka < 0 ? "Done" : angka} </span>
+            <Tombol title="+" />
+            <br />
+            <br />
+            <ResetButton />
         </div>
+
+       
+            
+          
         );
       }
 
-      function Header(props) {
+
+
+      function Header({nama}) {
         return (
         <>
-        <h1>Hai {props.nama}!! 🚀</h1>
+        <h1>Hai {nama ? nama : 'Dental Supply'}!! 🚀</h1>
+
         <img src="img/Logo.png" width="200" alt="My Image"/>
         <p onClick={e => {alert('Ok!')}}>Belajar React itu Mudah loh!  </p>
         </>
